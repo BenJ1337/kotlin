@@ -54,7 +54,7 @@ class Entry{
 ### Compile 
 #### create the java library jar
 ```
-kotlinc .\lib\bye\ByeService.kt -d MyLib.jar
+kotlinc .\lib -d MyLib.jar
 ```
 #### create the executable file
 ```
