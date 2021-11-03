@@ -27,7 +27,7 @@ kotlinc .\src\StandAloneApp.kt -include-runtime -d StandAloneApp.jar
 ```
 java -jar StandAloneApp.jar
 ```
-### Compile and rund with one line
+### Compile and run with one line
 ```
 kotlinc .\src\StandAloneApp.kt -include-runtime -d StandAloneApp.jar && java -jar StandAloneApp.jar
 ```
