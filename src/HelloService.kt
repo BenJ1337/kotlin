@@ -5,7 +5,7 @@ import lib.talk.domain.Person
 class HelloService {
     companion object {
         fun hello(person: Person) {
-            println("${person.name} say's hello")
+            println("${person.name} says hello")
         }
     }
 }
