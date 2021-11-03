@@ -8,28 +8,65 @@ https://github.com/JetBrains/kotlin/releases/tag/v1.5.31
 
 ### Set PATH in cmd to Kotlin compiler bin directory
 ```
-SET PATH=%PATH%;C:\Users\user123\Desktop\kotlin\kotlin-compiler-1.1.2-2\kotlinc\bin
+SET PATH=%PATH%;%userprofile%\Downloads\kotlin-compiler-1.5.31\kotlinc\bin
 ```
 
-## Compiling Codes as Executable Jar file
+## Simple Application wihtout Dependencies
+### Code
+/src/StandAloneApp.kt
+```java
+fun main(args: Array<String>) {
+    print("I'm here")
+}
 ```
-kotlinc HelloWorld.kt -include-runtime -d HelloWorld.jar
+### Compile it as Executable Jar file
 ```
-### Run a kotlin application
+kotlinc .\src\StandAloneApp.kt -include-runtime -d StandAloneApp.jar
 ```
-java -jar HelloWorld.jar
+### Run it
 ```
+java -jar StandAloneApp.jar
 ```
-kotlin -classpath HelloWorld.jar HelloWorldKt
+### Compile and rund with one line
+```
+kotlinc .\src\StandAloneApp.kt -include-runtime -d StandAloneApp.jar && java -jar StandAloneApp.jar
 ```
 
-## Compiling Codes as a library
+
+## Application with Dependencies
+### Code
+#### Entry point to run the application
+/src/Entry.kt
 ```
-kotlinc HelloWorld.kt -d HelloWorld.jar
+import lib.talk.service.TalkService
+import lib.talk.domain.Person
+
+class Entry{
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val otto = Person("Otto")
+            TalkService.goodbye(otto)
+        }
+    }
+}
 ```
-    
-## Compile Code of a folder an excecute it 
+### Compile 
+#### create the java library jar
 ```
-kotlinc play/ -include-runtime -d play.jar && java -jar play.jar
+kotlinc .\lib\bye\ByeService.kt -d MyLib.jar
 ```
+#### create the executable file
+```
+kotlinc src/Entry.kt src/Entry.kt -cp MyLib.jar -include-runtime -d Entry.jar
+```
+### Run it
+```
+java -cp Entry.jar;MyLib.jar Entry
+```
+### Compile and run with one line
+```
+kotlinc .\lib -d MyLib.jar && kotlinc .\src\Entry.kt .\src\HelloService.kt -cp MyLib.jar -include-runtime -d Entry.jar && java -cp Entry.jar;MyLib.jar Entry
+```
+
 
